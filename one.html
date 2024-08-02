@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .card {
+        background-color: aliceblue;
+        max-width: 400px;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(1, 0.4, 0.3, 0.4);
+        animation: text-appear 0.5s;
+        margin: 20px;
+      }
+      .image {
+        background-color: salmon;
+        border-radius: 10px;
+      }
+      img {
+        max-width: 400px;
+        animation: smooth-display 1s;
+      }
+      .body {
+        animation: text-appear 1s;
+      }
+      .container {
+        max-width: 100%;
+        overflow-x: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      @keyframes smooth-display {
+        from {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes roll {
+        from {
+          transform: translate(200px, -400px) rotate(0deg);
+        }
+        to {
+          transform: translate(200px, -400px) rotate(360deg);
+        }
+      }
+      @keyframes text-appear {
+        from {
+          opacity: 0;
+          transform: translate(0, 40px);
+        }
+        to {
+          opacity: 1;
+          transform: translate(0, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="image">
+          <img src="./1.png" alt="einstein" />
+        </div>
+        <div class="body">
+          <div class="title"><h1 style="font-size: 50px">The Einstein</h1></div>
+          <div class="des">
+            <p style="font-size: 30px"></p>
+          </div>
+        </div>
+      </div>
+
+  </body>
+</html>
