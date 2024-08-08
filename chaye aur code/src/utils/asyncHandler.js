@@ -9,8 +9,8 @@
 //     }
 // };
 const asyncHandler = (reqHandler) => {
-    (req, res, next) => {
+    return (req, res, next) => {
         Promise.resolve(reqHandler(req, res, next)).catch(next);
     };
 };
-module.exports = requestHandler;
+module.exports = asyncHandler;

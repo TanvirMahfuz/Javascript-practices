@@ -1,10 +1,11 @@
-import { v2 as cloudinary } from "cloudinary";
-import fs from "fs";
+const cloudinary = require("cloudinary").v2;
+
+const fs = require("fs");
 // Configuration
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: CLOUDINARY_API_KEY,
-    api_secret: CLOUDINARY_API_SECRET, // Click 'View Credentials' below to copy your API secret
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET, // Click 'View Credentials' below to copy your API secret
 });
 async function uploadOnCloudinary(file_path) {
     try {
@@ -17,6 +18,7 @@ async function uploadOnCloudinary(file_path) {
         return uploadResult;
     } catch (error) {
         fs.unlinkSync(file_path);
+        return null;
     }
 
     // Optimize delivery by resizing and applying auto-format and auto-quality
