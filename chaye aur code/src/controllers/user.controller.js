@@ -13,33 +13,45 @@ const registerUser = asyncHandler(async (req, res) => {
     // 6. create user object
     // 7. save user
     // 8. modify response
-    const { fullName, username, email, password } = req.body;
+
+    const { fullName, username, email, password } = JSON.parse(req.body.data);
+    // used JSON.parse here, because data is coming from postman so it is a string. it will be different when the data will come from the web
+    // used object destructuring here.
+    // the variable name is same as the received object
     console.log(fullName, username, email, password);
     if (
-        [fullName, username, email, password].some(
-            (field) => field?.trim() === ""
-        )
+        [fullName, username, email, password].some((field) => {
+            field?.trim() == "";
+        })
+        // the some method traverses the array and checks for empty values. it returns a boolean
     ) {
-        throw new ApiError(400, "all field required");
+        throw new ApiError(400, "All fields required");
     }
-    const existedUser = User.findOne({
+
+    const existedUser = await User.findOne({
         $or: [{ username }, { email }],
-    });
+    }); // a database call to check if the user already exited or not
+
     if (existedUser) {
         throw new ApiError(409, "User already exists");
     }
+    console.log(req.files);
     const avatartLocalpath = req.files?.avatar[0]?.path;
     const coverImageLocalpath = req.files?.coverImage[0]?.path;
+    //req.file method becomes available when we use multer middleware
+    // req.file return a object. each object key is the field name and consists of an array of objects that contain the file info
+    console.log(avatartLocalpath, coverImageLocalpath);
     if (!avatartLocalpath) {
         throw new ApiError(400, "All field required");
     }
     const avatar = await uploadOnCloudinary(avatartLocalpath);
     const coverImage = await uploadOnCloudinary(coverImageLocalpath);
+    // console.log(avatar, coverImage);
     if (!avatar) {
         throw new ApiError(400, "All field required");
     }
     const user = await User.create({
-        fullName,
+        full_name: fullName, // different db an varname
         username,
         email,
         password,

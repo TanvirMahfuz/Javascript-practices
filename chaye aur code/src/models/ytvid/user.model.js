@@ -16,7 +16,7 @@ const object = {
         trim: true,
         index: true,
     },
-    enail: {
+    email: {
         type: String,
         required: true,
         unique: true,
