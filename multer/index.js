@@ -13,6 +13,7 @@ app.post(
   upload.fields([{ name: "image", maxCount: 1 }]),
   (req, res) => {
     console.log("file uploaded");
+    console.log(req.body);
     res.status(200).json({ msg: "ok" });
   },
 );
